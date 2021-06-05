@@ -11,6 +11,7 @@ class CreatePost extends Component {
 
     constructor(props){
     super(props)
+    this.fileInput = React.createRef()
     const today = new Date()
     this.state ={
         blogTitle: '',
@@ -20,7 +21,8 @@ class CreatePost extends Component {
         slug: '',
         isAdmin: true,
         blogCategory: 'catégorie',
-        id: props.id
+        id: props.id,
+        blogImage: React.createRef()
     }
 }
      
@@ -38,11 +40,18 @@ class CreatePost extends Component {
                     [e.target.id] : e.target.value
                 })
     }
-    
+
+    handleChangeImg = (e)=>{
+        this.setState({blogImage : this.fileInput.current.files[0].name})
+    } 
+
     handleSubmit = (e) => {
         e.preventDefault();
         //base.removeBinding(this.ref)
         //this.state.categories = ''
+        //alert(`Selected file - ${this.fileInput.current.files[0].name}`)
+        
+        //this.setState({blogImage: this.fileInput.current.files[0].name})
         const post = { ...this.state }
         this.props.createPost(post)
         //reset du formulaire*/
@@ -122,8 +131,11 @@ class CreatePost extends Component {
                                 <textarea  placeholder="contenu" value={this.state.blogText} id="blogText" name="blogText" className="materialize-textarea" onChange={ this.handleChange } ></textarea>
                             </div>
                             <div className="input-field">
-                                <textarea  placeholder="image" value={this.state.blogImage} id="blogImage" name="blogImage" className="materialize-textarea" onChange={ this.handleChange } ></textarea>
+                                <input type="file"  ref={this.fileInput}  id="blogImage" className="" onChange={ this.handleChangeImg }/>
                             </div>
+                            {/* <div className="input-field">
+                                <input type="file" name="picture"/>
+                            </div> */}
                             
                         <div className="actions">
                             <div className="input-filed">

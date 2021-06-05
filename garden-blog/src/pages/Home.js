@@ -8,7 +8,7 @@ class Home extends Component {
 
     state = {
         posts : [],
-        limit: 10
+        limit: 5
     }
  
         
