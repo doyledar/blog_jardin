@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { Redirect } from 'react-router'
-import base from '../../config/base'
-import Select from '../../components/Select'
+import Link from "gatsby-link"
+import { navigateTo } from "gatsby-link"
+
+ 
+
 
 
 
@@ -26,7 +29,15 @@ class CreatePost extends Component {
     }
 }
      
-      
+    // fonction utilisée dans le traitement du form pour l'upload de l'image
+    encode = (data) => {
+    const formData = new FormData()
+
+    for (const key of Object.keys(data)){
+        formData.append(key, data[key])
+    }
+    return formData
+    }     
     
     handleChange = (e) => {
         console.log(e);
@@ -41,14 +52,23 @@ class CreatePost extends Component {
                 })
     }
 
-    handleChangeImg = (e)=>{
+    handleChangeImg = e =>{
         this.setState({blogImage : this.fileInput.current.files[0].name})
     } 
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         e.preventDefault();
-        //base.removeBinding(this.ref)
-        //this.state.categories = ''
+        
+        // upload de l'image
+        const form = e.target
+        fetch("/", {
+            method: "POST",
+            body: this.encode({
+                "form-name": form.getAttribute("name"),
+                ...this.state
+            })
+        })
+            .catch(error => alert(error))
         //alert(`Selected file - ${this.fileInput.current.files[0].name}`)
         
         //this.setState({blogImage: this.fileInput.current.files[0].name})
@@ -75,16 +95,9 @@ class CreatePost extends Component {
         ;
     }
 
-    /* changeColor = (s) => {
-        if(s.options[s.selectedIndex].value == "") {
-            s.style.color = "#a9a9a9";
-        }
-         
-        else {
-            s.style.color = "black";
-        }
-    } */
-
+       handleAttachment = e => {
+        this.setState({ [e.target.name ] : e.target.files[0] })
+    }
 
     
 
@@ -99,9 +112,18 @@ class CreatePost extends Component {
             return (
                 this.state.isPushed ? <Redirect to='/' push={true}/> :          
                 <div className="container">
-                    <form onSubmit={ this.handleSubmit } className="white">
-                        <h5 className="grey-text text-darken-3">Ajouter un post</h5>
+                    <form onSubmit={ this.handleSubmit } className="white" method="post" data-netlify="true" data-netlify-honeypot="bot-field">
                         
+                        <h5 className="grey-text text-darken-3">Ajouter un post</h5>
+                            
+                            <input type="hidden" name="form-name" value="file-upload"/>
+                            <p hidden>
+                                <label>
+                                    Don't fill this out:{" "}
+                                    <input name="bot-field" onChange={this.handleChange}/>
+                                </label>
+                            </p>
+                            
                             <div className="input-field">
                                 
                                 <input type="hidden" value={id}  id="id" name="id"/>
@@ -130,12 +152,11 @@ class CreatePost extends Component {
                             <div className="input-field">
                                 <textarea  placeholder="contenu" value={this.state.blogText} id="blogText" name="blogText" className="materialize-textarea" onChange={ this.handleChange } ></textarea>
                             </div>
+                            {/* input non contrôlé car sa valeur ne peut être sélectionnée que par l'utilisateur */}
                             <div className="input-field">
                                 <input type="file"  ref={this.fileInput}  id="blogImage" className="" onChange={ this.handleChangeImg }/>
                             </div>
-                            {/* <div className="input-field">
-                                <input type="file" name="picture"/>
-                            </div> */}
+                            
                             
                         <div className="actions">
                             <div className="input-filed">
