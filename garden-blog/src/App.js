@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Home from './pages/Home';
+import ContactUS from './pages/ContactUS';
+import About from './pages/About';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import NewsList from './pages/news/NewsList';
+import Post from './pages/posts/Post'
+import News from './pages/news/News'
+import CreatePost from './pages/posts/CreatePost'
+import Admin from './pages/Admin'
 
-function App() {
+
+class App extends Component {
+
+render() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+
+      <div>
+        
+        <Route exact path='/' component={ Home }/>
+        <Route path='/contact' component={ ContactUS }/>
+        <Route path='/about' component={ About }/>
+        <Route path='/news' component={ NewsList }/>
+        <Route path='/posts/:slug' component={ Post }/>
+        <Route path='/news/:newsId' component={ News }/>
+        
+      </div>
+
+    </Router>
+  
+    
+    
   );
 }
-
+}
 export default App;

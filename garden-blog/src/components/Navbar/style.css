@@ -1,0 +1,36 @@
+/* REGULAR NAV */
+.regular-nav img.logo {
+    max-height: 55px;
+    margin: 40px 0 0;
+}
+
+@media all and (min-width: 769px) {
+    .nav-wrapper {
+        padding-top: 54px;
+    }
+    .regular-nav.top-navigation .navbar-nav >li > a {
+        padding: 33px 17px
+    }
+    .regular-nav img.logo {
+        max-height: 50px;
+        margin: 40px 0 0;
+    }
+    
+}
+
+@media all and (max-width: 768px) {
+    .regular-nav .navbar-toggle {
+        float: right;
+        margin: 21px 0;
+    }
+    .regular-nav img.logo {
+        float: left;
+        margin-top: 9px;
+    }
+    .navbar-collapse {
+        clear: both;
+    }
+    .dropdown-menu>li>a {
+        color: #eee;
+    }
+}

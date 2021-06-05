@@ -1,0 +1,7 @@
+.actions{
+    display: flex;
+}
+
+.actions button{
+    margin: 5px;
+}

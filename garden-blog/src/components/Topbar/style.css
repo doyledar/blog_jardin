@@ -1,0 +1,40 @@
+/* TOp BAR */
+#top-bar {
+    background: rgba(0,0,0,0.4);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 999;
+    padding: 10px 0 9px;
+}
+
+#top-bar ul {
+    margin-bottom: 0;
+}
+
+#top-bar .secondary-menu a {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 0 5px;
+    text-decoration: none;
+}
+
+#top-bar .secondary-menu a:hover {
+    text-decoration: none;
+}
+
+#top-bar a {
+    color: #fff;
+}
+
+@media all and (min-width: 768px) {
+    .nav-wrapper {
+        padding-top: 40px;
+    }
+}
+
+.owl-carousel {
+    margin-bottom: -1px;
+}
