@@ -26,7 +26,9 @@ render() {
         <Route path='/news' component={ NewsList }/>
         <Route path='/posts/:slug' component={ Post }/>
         <Route path='/news/:newsId' component={ News }/>
-        
+        <Route path='/createPost' component={ CreatePost }/>
+        <Route path='/admin' component={ Admin }/>
+
       </div>
 
     </Router>
