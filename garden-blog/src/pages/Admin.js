@@ -6,19 +6,22 @@ import 'firebase/auth'
 import base, {firebaseApp} from '../config/base'
 import Login from '../components/Login/index'
 
+
+export const AuthContext = React.createContext(null);
+
 class Admin extends Component{
     state = {
         posts : [],
         users: [],
-        uid: null
-     }
+        uid: null,
+        //isLoggedIn: false
+    }
  
-     
-    
+        
     componentDidMount(){
         this.ref1 = base.syncState(`/posts`, {
-        context: this,
-        state: 'posts' 
+            context: this,
+            state: 'posts' 
         })
 
         this.ref2 = base.syncState(`/blogCategories`, {
@@ -33,7 +36,13 @@ class Admin extends Component{
     //quand le composant se ferme, on supprime la liaison avec firebase pour ne pas écraser des infos qui ne nous appartiennent pas
     componentWillUnmount(){
         base.removeBinding(this.ref1)
+        
       }
+
+    
+    
+    
+    // authentification facebook
 
     handleAuth = async authData =>{
         this.setState({
@@ -41,8 +50,7 @@ class Admin extends Component{
               
         })
     }
-    
-    
+
     authenticate = () =>{
         const authProvider = new firebase.auth.FacebookAuthProvider
 
@@ -51,6 +59,25 @@ class Admin extends Component{
             .signInWithPopup(authProvider)
             .then(this.handleAuth)
     }
+
+
+    // authentification login (mail) / pwd
+    // connexion
+    loginUser = (email, password) =>{
+        const authProvider = new firebase.auth.EmailAuthProvider   
+        
+        firebaseApp
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(this.handleAuth)
+    } 
+
+    // logout
+    signoutUser = () =>
+        firebaseApp
+            .auth().signOut()
+
+
 
     
       
@@ -70,12 +97,15 @@ class Admin extends Component{
         //const logout= <button className="btn red lighten-1" onClick={this.logout}>Déconnexion</button>
         //console.log(this.state.posts)
         if(!this.state.uid){
-            return <Login authenticate= {this.authenticate}> </Login>
+            return <Login authenticate= {this.authenticate} loginUser={this.loginUser}> </Login>
         }
 
         return (
             <Layout>
-                <CreatePost id={this.state.posts.length} posts={this.state.posts} categories={this.state.categories} createPost={this.createPost}>
+                <CreatePost id={this.state.posts.length} 
+                            posts={this.state.posts} 
+                            categories={this.state.categories} 
+                            createPost={this.createPost}>
                 </CreatePost>                
                 
             </Layout>

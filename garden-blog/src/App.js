@@ -9,6 +9,7 @@ import Post from './pages/posts/Post'
 import News from './pages/news/News'
 import CreatePost from './pages/posts/CreatePost'
 import Admin from './pages/Admin'
+import { AuthProvider } from './config/auth'
 
 
 class App extends Component {
@@ -16,23 +17,24 @@ class App extends Component {
 render() {
   
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
 
-      <div>
-        
-        <Route exact path='/' component={ Home }/>
-        <Route path='/contact' component={ ContactUS }/>
-        <Route path='/about' component={ About }/>
-        <Route path='/news' component={ NewsList }/>
-        <Route path='/posts/:slug' component={ Post }/>
-        <Route path='/news/:newsId' component={ News }/>
-        <Route path='/createPost' component={ CreatePost }/>
-        <Route path='/admin' component={ Admin }/>
+        <div>
+          
+          <Route exact path='/' component={ Home }/>
+          <Route path='/contact' component={ ContactUS }/>
+          <Route path='/about' component={ About }/>
+          <Route path='/news' component={ NewsList }/>
+          <Route path='/posts/:slug' component={ Post }/>
+          <Route path='/news/:newsId' component={ News }/>
+          <Route path='/createPost' component={ CreatePost }/>
+          <Route path='/admin' component={ Admin }/>
 
-      </div>
+        </div>
 
-    </Router>
-  
+      </Router>
+    </AuthProvider>
     
     
   );

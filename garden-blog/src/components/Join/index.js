@@ -1,14 +1,7 @@
-import React, {useState, useContext} from 'react';
-import Layout from '../Layout'
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import base, {firebaseApp} from '../../config/base'
+import React from 'react';
 
+const Join = ({signupUser}) => {
 
-
-const Login = ( {authenticate, signupUser, loginUser}) => {
-
- 
     const data = {
         pseudo: '',
         email: '',
@@ -22,17 +15,6 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
     const handleChange = e => {
         setLoginData({...loginData, [e.target.id]: e.target.value })
     }
-
-    // inscription
-
-    signupUser = (email, password) =>
-      
-        firebaseApp
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-
-
-    
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -52,12 +34,17 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
 
     const btnInscription = pseudo === '' || email === '' || password === '' || password !== confirmPassword 
         ? <button className="btn red ligthen-1" disabled>Inscription</button>
-        : <button className="btn btn-primary">Inscription</button>
+        : <button className="btn red ligthen-1">Inscription</button>
+
+
+    
 
 
 
     // gestion erreurs connexion
     const errorMsg = error != '' && <span>{error.message}</span>
+
+
 
     return (
         <Layout>
@@ -86,12 +73,11 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
                             </div>
                             <div className='row'>
                                 <div className='col-md-6'>{btnInscription}</div>
-                                
+                                <div className = 'col-md-6'>
+                                    <button className="btn red ligthen-1">Inscription</button>
+                                </div>
                             </div>
                         </form>
-                        <div className = 'col-md-6'>
-                            <button onClick={() => loginUser(email, password)} className="btn red ligthen-1">Login</button>
-                        </div>
                             
                             
                     </div>
@@ -109,6 +95,4 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
     );
 }
 
-export default Login;
-
-                                
+export default Join;
