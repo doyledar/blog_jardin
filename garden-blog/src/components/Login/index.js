@@ -1,6 +1,12 @@
+/* 
+    ./src/components/Login
+    authentification
+    state: pseudo, email, password, confirmPassword
+    props: fonctions authenticate, signup et loginUser 
+*/
+
 import React, {useState, useContext} from 'react';
 import Layout from '../Layout'
-import firebase from 'firebase/app'
 import 'firebase/auth'
 import base, {firebaseApp} from '../../config/base'
 
@@ -32,7 +38,7 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
             .createUserWithEmailAndPassword(email, password)
 
 
-    
+    // inscription d'un nouvel utilisateur
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -50,6 +56,8 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
 
     const {pseudo, email, password, confirmPassword} = loginData
 
+    // si un champ est vide ou si le mot de passe de confirmation ne correspond pas au  mot de passe, on n'active pas le
+    // bouton d'inscription
     const btnInscription = pseudo === '' || email === '' || password === '' || password !== confirmPassword 
         ? <button className="btn red ligthen-1" disabled>Inscription</button>
         : <button className="btn btn-primary">Inscription</button>
@@ -70,7 +78,7 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
                 
                 <div className="row">
                     <div className="col-sm-8">
-                            
+                        {/* formulaire d'inscription d'un nouvel utilisateur */}    
                         <form className="white" onSubmit={handleSubmit}>
                             <div>
                                 <input onChange={handleChange} value={pseudo} className="input-field" type="text" id="pseudo" placeholder="pseudo" required />
@@ -89,6 +97,7 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
                                 
                             </div>
                         </form>
+                        {/* login via mail/pwd */}
                         <div className = 'col-md-6'>
                             <button onClick={() => loginUser(email, password)} className="btn red ligthen-1">Login</button>
                         </div>
@@ -96,9 +105,9 @@ const Login = ( {authenticate, signupUser, loginUser}) => {
                             
                     </div>
                     
+                    {/* login via facebook */}
                     <div className="input-filed" className="col-sm-4">
                         <div>
-                            
                             <button className="btn red ligthen-1" onClick={authenticate}>Login facebook</button>
                         </div>
                     </div>

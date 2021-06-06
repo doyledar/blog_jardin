@@ -1,3 +1,6 @@
+/* ./src/pages/NewsList
+affichage de la liste des news */
+
 import React from 'react';
 import Sidebar from '../../components/Sidebar';
 import News from './News';

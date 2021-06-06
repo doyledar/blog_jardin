@@ -1,3 +1,8 @@
+/*
+    ./src/pages/About
+    infos about
+*/
+
 import React from 'react';
 import Layout from '../components/Layout';
 

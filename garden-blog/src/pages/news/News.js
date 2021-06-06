@@ -1,3 +1,6 @@
+/* ./src/pages/news
+affichage d'une news */
+
 import React from 'react';
 import { NavLink } from 'react-router-dom'
 

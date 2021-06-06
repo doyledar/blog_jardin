@@ -1,3 +1,7 @@
+/* ./src/pages/Admin
+state : posts - uuid (identifiant d'un utilisateur authentifié)
+on charge les posts et les catégories et on lance l'authentification avant d'accéder à l'ajout des posts */
+
 import React, { Component } from 'react'
 import Layout from '../components/Layout'
 import CreatePost from '../pages/posts/CreatePost'
@@ -12,19 +16,19 @@ export const AuthContext = React.createContext(null);
 class Admin extends Component{
     state = {
         posts : [],
-        users: [],
         uid: null,
-        //isLoggedIn: false
     }
  
         
     componentDidMount(){
+        // chargement des posts - laiaison bi-directionnelle
         this.ref1 = base.syncState(`/posts`, {
             context: this,
             state: 'posts' 
         })
 
-        this.ref2 = base.syncState(`/blogCategories`, {
+        //chargement des catégories - liaison unidirectionnelle (fb -> app)
+        this.ref2 = base.bindToState(`/blogCategories`, {
             context: this,
             state: 'categories' 
             })
@@ -39,18 +43,17 @@ class Admin extends Component{
         
       }
 
+      
     
-    
-    
-    // authentification facebook
+    // on vérifie si l'utilisateur est authentifié
 
     handleAuth = async authData =>{
         this.setState({
             uid: authData.user.uid,
-              
         })
     }
 
+    // authentification facebook
     authenticate = () =>{
         const authProvider = new firebase.auth.FacebookAuthProvider
 
@@ -76,30 +79,26 @@ class Admin extends Component{
     signoutUser = () =>
         firebaseApp
             .auth().signOut()
-
-
-
     
-      
+
+    // création d'un post        
     createPost = post =>{
         const posts={ ...this.state.posts }
-        const next = this.state.posts.length
+        //const next = this.state.posts.length
         // on ajoute un timestamp au post pour avoir une clé unique
-        //posts[`post-${Date.now()}`] = post
-        posts[next] = post
+        posts[`post-${Date.now()}`] = post
+        //posts[next] = post
         this.setState({ posts })
     }
      
     
 
-      render() {
-        //console.log(this.state)
-        //const logout= <button className="btn red lighten-1" onClick={this.logout}>Déconnexion</button>
-        //console.log(this.state.posts)
+    render() {
+        // si l'utilisateur n'est pas authentifié, on lui affiche le formulaire d'authentifcation
         if(!this.state.uid){
             return <Login authenticate= {this.authenticate} loginUser={this.loginUser}> </Login>
         }
-
+        // si l'utilisateur est authentifié, on lui affiche le formulaire d'ajout d'un post
         return (
             <Layout>
                 <CreatePost id={this.state.posts.length} 

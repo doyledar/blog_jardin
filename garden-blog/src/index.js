@@ -1,10 +1,11 @@
+/* ./index.js
+La base du projet où on relie le toutl'id root qui dans index.html à notre App */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-
 
 
 ReactDOM.render(

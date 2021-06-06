@@ -1,3 +1,6 @@
+/* ./App.js
+Routing */ 
+
 import React, {Component} from 'react';
 import './App.css';
 import Home from './pages/Home';
@@ -17,7 +20,7 @@ class App extends Component {
 render() {
   
   return (
-    <AuthProvider>
+    
       <Router>
 
         <div>
@@ -34,7 +37,7 @@ render() {
         </div>
 
       </Router>
-    </AuthProvider>
+    
     
     
   );

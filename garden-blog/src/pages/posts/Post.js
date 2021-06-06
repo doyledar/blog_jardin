@@ -1,15 +1,20 @@
+/* ./src/pages/posts/post
+affichage d'un post
+state: post, slug */
+
 import React, {useState, useEffect} from 'react';
 import Layout from '../../components/Layout';
 import Sidebar from '../../components/Sidebar'
 import posts from '../../data/blog.json'
 
 const Post = (props) => {
-    console.log(props)
+    
     const [post, setPost] = useState({})
     const [slug, setSlug] = useState('')
 
     // useEffect() sera appelée après chaque rendu (attention, il faut l'importer)
     // on utilise ceci à la place de devoir écrire le même code dans componentDidMount et componentDidUpdate
+    // ici, on met le post et le slug dans le state
     useEffect(() => {
         const slug = props.match.params.slug 
         let post = props.location.postProp.post
@@ -19,8 +24,7 @@ const Post = (props) => {
     
     
     return (
-         // améliorer les images avec un compossant image et src={require('../path/blogPostImages/' + props.Imagesarray[i])} après 
-         // avoir construit ImagesArray dans Posts.js et boucler si nécessaire (cfr min 26 + video 2 dans index.js)     
+              
         <Layout>
             <div className="container">
                 <div className="row">

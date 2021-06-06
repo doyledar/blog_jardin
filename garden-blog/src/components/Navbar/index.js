@@ -1,3 +1,8 @@
+/*
+    ./src/components/Navbar
+    menu principal
+*/
+
 import React, { useState } from 'react';
 import Footer from '../Footer';
 import Logo from '../Logo';
@@ -9,8 +14,8 @@ import './style.css'
 
 const Navbar = (props) => {
 
-    //const [search, setSearch] = useState(false)
-
+    
+    // recherche
     const submitSearch = (e) => {
         e.preventDefault()
         alert('coucou')

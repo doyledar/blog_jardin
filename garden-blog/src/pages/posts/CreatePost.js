@@ -1,14 +1,11 @@
+/* ./src/pages/posts/CreatePost
+création d'un post puis redirection sur la racine du site (affichage des posts)
+state: infos d'un post (titre, txte, auteur, ...) */
+
 import React, { Component } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { Redirect } from 'react-router'
-import Link from "gatsby-link"
-import { navigateTo } from "gatsby-link"
-
- 
-
-
-
 
 class CreatePost extends Component {
 
@@ -39,6 +36,7 @@ class CreatePost extends Component {
     return formData
     }     
     
+    // liaison bidirectionnelle entre les inputs et le state
     handleChange = (e) => {
         console.log(e);
         e.target.id !== "blogTitle" ?
@@ -56,10 +54,11 @@ class CreatePost extends Component {
         this.setState({blogImage : this.fileInput.current.files[0].name})
     } 
 
+    // envoi du formulaire
     handleSubmit = e => {
         e.preventDefault();
         
-        // upload de l'image
+        // upload de l'image 
         const form = e.target
         fetch("/", {
             method: "POST",
@@ -69,11 +68,10 @@ class CreatePost extends Component {
             })
         })
             .catch(error => alert(error))
-        //alert(`Selected file - ${this.fileInput.current.files[0].name}`)
         
-        //this.setState({blogImage: this.fileInput.current.files[0].name})
         const post = { ...this.state }
         this.props.createPost(post)
+        
         //reset du formulaire*/
         Object.keys(post).forEach(item => {
             post[item] = ''
@@ -81,12 +79,14 @@ class CreatePost extends Component {
         this.setState({...post, isPushed: true}) 
     }
 
+    // logout uitilisateur
     logout = async() =>{
         console.log('déconnexion')
         await firebase.auth().signOut()
         this.setState({ uid:null, isAdmin: false, isPushed: false })
     }
 
+    // conversion du titre en slug
     convertToSlug = (Text) => {
         return Text
         .toLowerCase()
@@ -95,7 +95,8 @@ class CreatePost extends Component {
         ;
     }
 
-       handleAttachment = e => {
+    // on met le nom du fichier dans le state pour l'envoyer à fb
+    handleAttachment = e => {
         this.setState({ [e.target.name ] : e.target.files[0] })
     }
 
@@ -106,8 +107,8 @@ class CreatePost extends Component {
         
          const categories = this.props.categories
          const id = this.props.id
-        //  console.log('l90 ' + categories)
-
+        
+        // si utilisateur authentifié
         if(this.state.isAdmin){
             return (
                 this.state.isPushed ? <Redirect to='/' push={true}/> :          
@@ -146,7 +147,6 @@ class CreatePost extends Component {
                                 <input placeholder="titre" value={this.state.blogTitle} type="text" id="blogTitle" name="blogTitle" onChange={ this.handleChange} />
                             </div>
                             <div className="input-field">
-                                {/* <label htmlFor="slug">slug</label> */}
                                 <input type="hidden" value={this.convertToSlug(this.state.blogTitle)} id="slug" name="slug"  />
                             </div>
                             <div className="input-field">
@@ -180,15 +180,5 @@ class CreatePost extends Component {
     }
 }
 
-
-
- /* const mapDispatchToProps = (dispatch) => {
-    return {
-        // au sein du composant, quand on fera props.createPost, on appellera l'action creator createPost à laquelle on passera 
-        // le post qu'on a mis en paramètre.   L'action creator va retourner la fonction qui va mettre le dispatch en pause
-        // faire un appel asynchrone et relancer le dispatch pour transmettre les data au reducer qui va mettre le state à jour
-        createPost: (post) => dispatch(createPost(post))
-    }
-} */ 
 
 export default CreatePost

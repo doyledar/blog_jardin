@@ -1,6 +1,9 @@
+/* ./src/components/UI/Cards/Card
+affichage d'un post dans une card */
+
 import React, {useState, useEffect} from 'react';
 import {NavLink} from 'react-router-dom'
-import posts from '../../../../data/blog.json'
+
 
 
 const Card = ({ post }) => {

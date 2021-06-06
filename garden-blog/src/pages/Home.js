@@ -1,8 +1,9 @@
+/* ./src/pages/Home.js */
+
+
 import React, { Component } from 'react';
 import Posts from './posts/Posts'
 import base from '../config/base'
-const postsPerPage = 10;
-let arrayForHoldingPosts = []
 
 class Home extends Component {
 
@@ -11,7 +12,7 @@ class Home extends Component {
         limit: 5
     }
  
-        
+    /* Chargement des 5 derniers posts (cfr limit du state)*/        
     componentDidMount(){
         
         this.ref = base.syncState(`/posts`, {
@@ -25,6 +26,8 @@ class Home extends Component {
         })
     }
 
+    /* On vérifie la limite du state pour voir si on a cliqué sur le bouton more, si elle
+    a changé, on recharge les posts en fonction de la nouvelle limite */
     componentDidUpdate(previousProps, previousState){
         if(previousState.limit !== this.state.limit){
             this.ref = base.syncState(`/posts`, {
@@ -41,15 +44,16 @@ class Home extends Component {
         
     
 
-    //quand le composant se ferme, on supprime la liaison avec firebase pour ne pas écraser des infos qui ne nous appartiennent pas
+    //quand le composant se ferme, on supprime la liaison avec firebase pour ne pas écraser des infos qui ne nous 
+    //appartiennent pas
     componentWillUnmount(){
-        
-        base.removeBinding(this.ref)
-      }
+       base.removeBinding(this.ref)
+    }
 
 
+    // augmente le nombre de posts chargé quand on clique sur more
     handleMore= (limitPosts) => {
-        this.setState({limit: limitPosts})
+       this.setState({limit: limitPosts})
     }  
 
 

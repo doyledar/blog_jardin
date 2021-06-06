@@ -1,6 +1,10 @@
+/*
+    ./src/components/footer
+    footer du site
+*/
+
 import React from 'react';
-import style from './style.css'
-import { NavLink } from 'react-router-dom'
+
 
 const Footer = (props) => {
     console.log(props)
@@ -16,18 +20,6 @@ const Footer = (props) => {
                             </div>
                         </div>
                     </div>
-                    
-                   {/*  <div className="col-md-6 col-xs-6">
-                        <div className="text-widget widget">
-                            <h4 className="widget-title mb40">Actions</h4>
-                            <div className="widget-content">
-                            <ul className="nav">
-                                <li><NavLink to={{pathname:'/actions/create'}} >Ajouter un post</NavLink></li>
-                                
-                            </ul>
-                            </div>
-                        </div>
-                    </div> */}
                     
                 </div>
                 <div className="row sub-footer">

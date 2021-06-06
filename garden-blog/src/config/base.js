@@ -1,3 +1,6 @@
+/* ./src/config/base.js
+fichier d'initialisation de la db firebase et initialisation de la syncrho entre react et la db */
+
 import Rebase from 're-base'
 import firebase from 'firebase/app'
 import 'firebase/database'

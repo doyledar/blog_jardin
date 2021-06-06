@@ -1,3 +1,5 @@
+/* ./src/components/Logo */ 
+
 import React from 'react';
 
 const Logo = () => {
