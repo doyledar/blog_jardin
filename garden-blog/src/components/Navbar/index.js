@@ -3,22 +3,31 @@
     menu principal
 */
 
-import React, { useState } from 'react';
-import Footer from '../Footer';
+import React, { useState, useEffect } from 'react';
 import Logo from '../Logo';
 import Dropdown from '../Menus/Dropdown'
 import ALink from '../Lists/ALink'
 import { NavLink } from 'react-router-dom'
 import './style.css'
+import base from '../../config/base'
 
 
 const Navbar = (props) => {
 
-    
+    const [datas, setData]= useState([])
+    const [searchTerm, setSearchTerm] = useState('')
+
+     
     // recherche
     const submitSearch = (e) => {
         e.preventDefault()
         alert('coucou')
+    }
+
+    const handleChange = e => {
+        //console.log(e.target.value)
+        let value = e.target.value
+        setSearchTerm(value)
     }
 
     return (
@@ -72,7 +81,7 @@ const Navbar = (props) => {
                                     <ul className="dropdown-menu">
                                         <form onSubmit={ submitSearch }className="form-inline">
                                             <button type="submit" className="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button>
-                                            <input type="text" className="form-control pull-left" placeholder="Search" />
+                                            <input type="text" className="form-control pull-left" placeholder="Search" onChange={ handleChange }/>
                                         </form>
                                     </ul>
                                 </li> 

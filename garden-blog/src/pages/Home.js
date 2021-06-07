@@ -9,7 +9,7 @@ class Home extends Component {
 
     state = {
         posts : [],
-        limit: 5
+        limit: 8
     }
  
     /* Chargement des 5 derniers posts (cfr limit du state)*/        

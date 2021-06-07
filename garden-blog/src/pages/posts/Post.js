@@ -5,7 +5,7 @@ state: post, slug */
 import React, {useState, useEffect} from 'react';
 import Layout from '../../components/Layout';
 import Sidebar from '../../components/Sidebar'
-import posts from '../../data/blog.json'
+//import posts from '../../data/blog.json'
 
 const Post = (props) => {
     
@@ -29,17 +29,8 @@ const Post = (props) => {
             <div className="container">
                 <div className="row">
                     <div className="col-sm-8">
-                        <div className="owl-carousel remove-item-paddings mb60" data-items="1">
-                            <div className="match-height nopaddingleftright">
-                                <div className="hover-effect smoothie">
-                                    <img src="assets/images/blog/blog-slider-1.jpeg" alt="Image" className="img-responsive smoothie" />
-                                </div>
-                            </div>
-                            <div className="match-height nopaddingleftright">
-                                <div className="hover-effect smoothie">
-                                    <img src="assets/images/blog/blog-slider-2.jpeg" alt="Image" className="img-responsive smoothie" />
-                                </div>
-                            </div>
+                        <div className="hover-overlay smoothie text-center">
+                            <img src={`/assets/images/blog/${ post.blogImage }`} alt={post.blogImage} className="img-responsive smoothie" /> 
                         </div>
                         <h1 className="section-title mb20">{post.blogTitle}</h1>
                         <div className="item-metas text-muted mb30 white">

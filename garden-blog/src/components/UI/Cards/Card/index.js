@@ -13,7 +13,8 @@ const Card = ({ post }) => {
         
             <div className="hover-effect smoothie">
                 <a href="#" className="smoothie">
-                    <img src={`assets/images/blog/${ post.blogImage }`} alt="Image" className="img-responsive smoothie" /></a>
+                    <img src={`/assets/images/blog/${ post.blogImage }`} alt={post.blogImage} className="img-responsive smoothie" />
+                </a>
                 <div className="hover-overlay smoothie text-center">
                     <div className="vertical-align-bottom">
                         <h4>{ post.children }</h4>
@@ -34,10 +35,7 @@ const Card = ({ post }) => {
                     </div>
                 </div>
             </div>
-        
-
-        
-    );
+      );
 }
 
 export default Card;
